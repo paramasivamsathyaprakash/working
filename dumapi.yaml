@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: list employees
+    - name: list contents
       uri:
         method: GET
         url: "https://www.google.com/"
