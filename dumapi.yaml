@@ -2,14 +2,16 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: list contents
-      uri:
-        method: GET
-        url: '{{ morpheus_appliance_url }}/api/groups?name={{ group_name | urlencode }}'
-        return_content: yes
-        headers:
-          Accept: application/json
-      register: response
+   - name: Get Morpheus Group
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/groups?name={{ group_name | urlencode }}'
+    headers:
+        Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: morpheus_groups
 
     - debug:
         msg: "{{ response.content }}"
