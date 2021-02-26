@@ -1,15 +1,9 @@
----
-- name: Make requests to example api
-  hosts: localhost
-  connection: local
-  tasks:
-   - name: Get Morpheus Group
-  uri:
-    url: '{{ morpheus_appliance_url }}/api/groups?name={{ group_name | urlencode }}'
-    headers:
-        Authorization: "BEARER {{ morpheus_api_token }}"
-    method: GET
-    force_basic_auth: yes
-    return_content: true
-    validate_certs: false
-  register: morpheus_groups
+   ---
+   - name: list employees
+      uri:
+        method: GET
+        url: "http://dummy.restapiexample.com/api/v1/employees"
+        url: "https://www.google.com/"
+        return_content: yes
+        headers:
+          Accept: application/json
