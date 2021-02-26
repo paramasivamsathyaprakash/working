@@ -1,3 +1,4 @@
+---
 - name: Make requests to example api
   hosts: localhost
   connection: local
