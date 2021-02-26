@@ -12,6 +12,3 @@
     return_content: true
     validate_certs: false
   register: morpheus_groups
-
-    - debug:
-        msg: "{{ response.content }}"
