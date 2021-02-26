@@ -5,7 +5,7 @@
     - name: list contents
       uri:
         method: GET
-        url: "https://devlmorph001.techlab.com/login/account/1/"
+        url: '{{ morpheus_appliance_url }}/api/groups?name={{ group_name | urlencode }}'
         return_content: yes
         headers:
           Accept: application/json
