@@ -1,0 +1,15 @@
+- name: Make requests to example api
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: list employees
+      uri:
+        method: GET
+        url: "http://dummy.restapiexample.com/api/v1/employees"
+        return_content: yes
+        headers:
+          Accept: application/json
+      register: response
+
+    - debug:
+        msg: "{{ response.content }}"
