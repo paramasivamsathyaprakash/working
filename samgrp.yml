@@ -1,0 +1,86 @@
+---
+- name: Get Morpheus Groups
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/groups'
+    headers:
+        Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: morpheus_groups
+
+- name: Set Vars
+  set_fact:
+    morpheus_group_list: "{{ morpheus_groups.json | json_query('groups[*].name') }}"
+    morpheus_group_id: "{{ morpheus_groups.json | json_query(group_query) }}"
+
+- name: Debug morpheus_group_id
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ morpheus_group_id }}"
+
+- name: Debug Group output
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ morpheus_group_list }}"
+
+- name: Create Morpheus Group when it doesn't already exist
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/groups'
+    headers:
+        Authorization: "BEARER {{ morpheus_api_token }}"
+    method: POST
+    body:
+      group:
+        name: "{{ group_name }}"
+        code: "{{ group_code | default(omit) }}"
+        location: "{{ group_location | default(omit)  }}"
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: create_morpheus_group
+  when: group_name not in morpheus_group_list
+
+- name: Update Morpheus Group when already exists
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/groups/{{ morpheus_group_id[0].id }}'
+    headers:
+        Authorization: "BEARER {{ morpheus_api_token }}"
+    method: PUT
+    body:
+      group:
+        name: "{{ group_name }}"
+        code: "{{ group_code | default(omit) }}"
+        location: "{{ group_location | default(omit)  }}"
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: create_morpheus_group
+  when: group_name in morpheus_group_list
+
+- name: Debug create_morpheus_group output
+  debug:
+    msg: "{{ create_morpheus_group }}"
+
+- name: Get Morpheus Groups
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/groups'
+    headers:
+        Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: morpheus_groups
+
+- name: Set Vars
+  set_fact:
+    morpheus_group_list: "{{ morpheus_groups.json | json_query('groups[*].name') }}"
+
+- name: Fail when group_name is not in list of groups
+  fail:
+    msg: "{{ group_name }}, is not in list of groups"
+  when: group_name not in morpheus_group_list
