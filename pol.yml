@@ -9,7 +9,7 @@
         user: sparavasivam
         password: Technologent!
         headers:
-          Authorization: "BEARER {{ morpheus_api_token }}"
+          Authorization: "BEARER {{ fa74c6c7-aee5-4389-906b-51967bd616b0 }}"
         method: GET
         force_basic_auth: yes
         return_content: true
