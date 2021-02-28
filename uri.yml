@@ -2,20 +2,20 @@
 - name: Make requests to morpheus api
   hosts: localhost
   connection: local
-  vars: 
+  vars:
     morpheus_appliance_url: https://api.gomorpheus.com/api/dashboard
-    morpheus_api-token: fa74c6c7-aee5-4389-906b-51967bd616b0
+    morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
   tasks:
     - name: polaris
       uri:
         method: GET
         url: "{{ morpheus_appliance_url}}"
         headers:
-            Authorization: "BEARER {{ morpheus_api-token }}"
+            Authorization: "BEARER {{ morpheus_api_token }}"
         return_content: yes
         validate_certs: false
         status_code: -1
-      register: response
-        
-    - debug:
-        msg: "{{ response }}"
+  register: response
+
+- debug:
+    msg: "{{ response }}"
