@@ -1,19 +1,21 @@
 ---
-- name: Make requests to example api
+- name: Make requests to morpheus api
   hosts: localhost
   connection: local
+  vars: 
+    morpheus_appliance_url: https://api.gomorpheus.com/api/dashboard
+    morpheus_api-token: fa74c6c7-aee5-4389-906b-51967bd616b0
   tasks:
     - name: polaris
       uri:
         method: GET
-        url: "https://devlmorph001.techlab.com/login/auth"
+        url: "{{ morpheus_appliance_url}}"
         headers:
-            Authorization: "BEARER {{ fa74c6c7-aee5-4389-906b-51967bd616b0 }}"
-        url_username: sparavasivam
-        url_password: Technologent1234!
+            Authorization: "BEARER {{ morpheus_api-token }}"
         return_content: yes
+        validate_certs: false
         status_code: -1
       register: response
         
     - debug:
-        msg: "{{ response.content }}"
+        msg: "{{ response }}"
