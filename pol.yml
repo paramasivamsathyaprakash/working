@@ -7,7 +7,7 @@
       uri:
         url: '{{ https://devlmorph001.techlab.com/login/auth }}'
         user: sparavasivam
-        password: Technologent!
+        password: Technologent1234!
         headers:
           Authorization: "BEARER {{ fa74c6c7-aee5-4389-906b-51967bd616b0 }}"
         method: GET
