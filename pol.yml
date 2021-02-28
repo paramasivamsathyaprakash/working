@@ -1,13 +1,17 @@
 ---
-- name: sample API
-  uri:
-    url: '{{ https://devlmorph001.techlab.com/login/auth }}'
-    user: sparavasivam
-    password: Technologent!
-    headers:
-        Authorization: "BEARER {{ morpheus_api_token }}"
-    method: GET
-    force_basic_auth: yes
-    return_content: true
-    validate_certs: false
-  register: API_register
+- name: Make requests to example api
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: sample API
+      uri:
+        url: '{{ https://devlmorph001.techlab.com/login/auth }}'
+        user: sparavasivam
+        password: Technologent!
+        headers:
+          Authorization: "BEARER {{ morpheus_api_token }}"
+        method: GET
+        force_basic_auth: yes
+        return_content: true
+        validate_certs: false
+      register: API_register
