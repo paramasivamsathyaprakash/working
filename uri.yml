@@ -1,0 +1,18 @@
+---
+- name: Make requests to example api
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: list employees
+      uri:
+        method: GET
+        url: "https://devlmorph001.techlab.com/login/auth"
+        url_username: sparavasivam
+        url_password: Technologent!
+        return_content: yes
+        #headers:
+          #Accept: application/json
+      register: response
+
+    - debug:
+        msg: "{{ response.content }}"
