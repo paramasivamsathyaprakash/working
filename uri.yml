@@ -3,16 +3,17 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: list employees
+    - name: polaris
       uri:
         method: GET
         url: "https://devlmorph001.techlab.com/login/auth"
+        headers:
+            Authorization: "BEARER {{ fa74c6c7-aee5-4389-906b-51967bd616b0 }}"
         url_username: sparavasivam
-        url_password: Technologent!
+        url_password: Technologent1234!
         return_content: yes
-        #headers:
-          #Accept: application/json
+        status_code: -1
       register: response
-
+        
     - debug:
         msg: "{{ response.content }}"
