@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    morpheus_appliance_url: https://api.gomorpheus.com/api/dashboard
+    morpheus_appliance_url: http://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
   tasks:
     - name: polaris
