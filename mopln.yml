@@ -14,7 +14,7 @@
         Authorization: "BEARER {{ morpheus_api_token }}"
         Content-Type: "application/json"
       body:
-        name: Polaris-small
+        name: Polaris-s
         code: Polsmall
         displayorder: 1
         storage: 30720
