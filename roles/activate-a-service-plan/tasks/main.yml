@@ -1,5 +1,5 @@
 ---
-- name: update a Service Plan for Polaris-small
+- name: activate a service plan
   uri:
     method: POST
     url: '{{ morpheus_appliance_url }}'
@@ -13,4 +13,4 @@
   register: updatedserviceplans
   success: true
 - debug:
-    msg: "{{ updatedserviceplans }}"
+    msg: "{{ activatedserviceplans }}"
