@@ -1,7 +1,7 @@
 ---
 - name: activate a service plan
   uri:
-    method: POST
+    method: PUT
     url: '{{ morpheus_appliance_url }}'
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
