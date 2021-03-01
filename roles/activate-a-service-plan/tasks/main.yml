@@ -11,6 +11,5 @@
     status_code: -1
     validate_certs: no
   register: updatedserviceplans
-  success: true
 - debug:
     msg: "{{ activatedserviceplans }}"
