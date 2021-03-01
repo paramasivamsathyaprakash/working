@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    morpheus_appliance_url: https://api.gomorpheus.com/api/dashboard
+    morpheus_appliance_url: https://api.gomorpheus.com/api/service-plans
     morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
   tasks:
     - name: polaris
@@ -29,15 +29,15 @@
                  minCores: 1
                  maxCores: 4
             maxStorage: 102400
-            maxMemory: 102400
+              maxMemory: 102400
             priceSets:
-            - id: 43
+              id: 43
             visibility: private
             permissions:
               resourcePermissions:
                 all: true
                 sites:
-                - id: 4
+                  id: 4
                   default: true
               tenantPermissions:
                 accounts: Polaris
