@@ -30,6 +30,7 @@
             minCore: "1"
         force_basic_auth: yes
         return_content: true
+        status_code: -1
         validate_certs: no
       register: serviceplans
     - debug:
