@@ -7,20 +7,20 @@
       Authorization: "BEARER {{ morpheus_api_token }}"
       Content-Type: "application/json"
     body:
-    name: Polaris-s
-    code: Polsmall
-    displayorder: "1"
-    storage: "30720"
-    provision type: vm ware
-    memory: "8192"
-    corecount: "1"
-    config:
-      maxStorage: "102400"
-      minStorage: "8192"
-      maxMemory: "102400"
-      minMemory: "8192"
-      maxCore: "2"
-      minCore: "1"
+      name: Polaris-s
+      code: Polsmall
+      displayorder: "1"
+      storage: "30720"
+      provision type: vm ware
+      memory: "8192"
+      corecount: "1"
+      config:
+        maxStorage: "102400"
+        minStorage: "8192"
+        maxMemory: "102400"
+        minMemory: "8192"
+        maxCore: "2"
+        minCore: "1"
     force_basic_auth: yes
     return_content: true
     status_code: -1
