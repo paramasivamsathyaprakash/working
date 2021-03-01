@@ -1,6 +1,5 @@
 ---
 - name: update a Service Plan for Polaris-small
-  success: true
   uri:
     method: POST
     url: '{{ morpheus_appliance_url }}'
@@ -12,5 +11,6 @@
     status_code: -1
     validate_certs: no
   register: updatedserviceplans
+  success: true
 - debug:
     msg: "{{ updatedserviceplans }}"
