@@ -8,4 +8,4 @@
     morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
     
   roles:
-    - update a service-plans
+    - update-a-service-plans
