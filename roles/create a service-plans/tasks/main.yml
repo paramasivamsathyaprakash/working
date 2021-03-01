@@ -25,6 +25,6 @@
     return_content: true
     status_code: -1
     validate_certs: no
-    register: serviceplans
-  - debug:
-      msg: "{{ serviceplans }}"
+  register: serviceplans
+- debug:
+    msg: "{{ serviceplans }}"
