@@ -1,0 +1,10 @@
+---
+- name: Make requests to morpheus api
+  hosts: localhost
+  connection: local
+  vars:
+    morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
+    morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
+    
+  roles:
+    - create a service-plans
