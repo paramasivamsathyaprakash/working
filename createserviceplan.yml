@@ -45,4 +45,7 @@
         body_format: json
         force_basic_auth: yes
         return_content: true
-      register: created_service_Plans
+      register: created_service_plans
+      
+      -debug:
+         msg: "{{ created_service-plans}}"
