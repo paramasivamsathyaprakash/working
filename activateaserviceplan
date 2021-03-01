@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    morpheus_appliance_url: https://api.gomorpheus.com/api/service-plans
+    morpheus_appliance_url: https://api.gomorpheus.com/api/service-plans:id/activate
     morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
   tasks:
     - name: polaris
@@ -20,5 +20,5 @@
         force_basic_auth: yes
         return_content: true
       register: activated_service_plans
-    -debug:
+    - debug:
        msg: "{{ activated_service_plans}}"
