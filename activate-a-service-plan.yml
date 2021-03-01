@@ -1,0 +1,11 @@
+---
+- name: activate requests to morpheus api
+  hosts: localhost
+  connection: local
+  become: true
+  vars:
+    morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans/:id/activate
+    morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
+    
+  roles:
+    - activate-a-service-plans
