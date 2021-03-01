@@ -1,0 +1,35 @@
+---
+- name: Make requests to morpheus api
+  hosts: localhost
+  connection: local
+  vars:
+    morpheus_appliance_url: https://api.gomorpheus.com/api/service-plans
+    morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
+- name: Create a Service Plan for Polaris-small
+      uri:
+        url: '{{ morpheus_appliance_url }}/api/service-plans'
+        headers:
+          Authorization: "BEARER {{ morpheus_api_token }}"
+          Content-Type: "application/json"
+      method: POST
+      body:
+        name: Polaris-small
+        code: Polsmall
+        displayorder: 1
+        storage: 30720
+        provision type: vm ware
+        memory: 8192
+        corecount: 1
+        config:
+          maxStorage: 102400
+          minStorage: 8192
+          maxMemory: 102400
+          minMemory: 8192
+          maxCore: 2
+          minCore: 1
+        force_basic_auth: yes
+        return_content: true
+        validate_certs: false
+  register: serviceplans
+- debug:
+    msg: "{{ serviceplans }}"
