@@ -8,7 +8,7 @@
         method: GET
         url: "http://devlmorph001.techlab.com/api/service-plans"
         headers:
-          Authorization: BEARER "fa74c6c7-aee5-4389-906b-51967bd616b0"
+          Authorization: "BEARER gggggg"
         return_content: yes
         validate_certs: false
         status_code: -1
