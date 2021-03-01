@@ -5,13 +5,14 @@
   vars:
     morpheus_appliance_url: https://api.gomorpheus.com/api/service-plans
     morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
-- name: Create a Service Plan for Polaris-small
-  uri:
-    method: POST
-    url: '{{ morpheus_appliance_url }}/api/service-plans'
-    headers:
-      Authorization: "BEARER {{ morpheus_api_token }}"
-      Content-Type: "application/json"
+  tasks:
+    - name: Create a Service Plan for Polaris-small
+      uri:
+      method: POST
+      url: '{{ morpheus_appliance_url }}/api/service-plans'
+      headers:
+        Authorization: "BEARER {{ morpheus_api_token }}"
+        Content-Type: "application/json"
       body:
         name: Polaris-small
         code: Polsmall
