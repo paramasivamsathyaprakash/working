@@ -1,5 +1,6 @@
 ---
 - name: update a Service Plan for Polaris-small
+  success: true
   uri:
     method: POST
     url: '{{ morpheus_appliance_url }}'
@@ -7,7 +8,6 @@
       Authorization: "BEARER {{ morpheus_api_token }}"
       Content-Type: "application/json"
     force_basic_auth: yes
-    success: true
     return_content: true
     status_code: -1
     validate_certs: no
