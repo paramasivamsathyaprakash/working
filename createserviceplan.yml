@@ -1,0 +1,48 @@
+---
+- name: create a new servicePlans
+  hosts: localhost
+  connection: local
+  vars:
+    morpheus_appliance_url: https://api.gomorpheus.com/api/dashboard
+    morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
+  tasks:
+    - name: polaris
+      uri:
+        url: "{{ morpheus_appliance_url}}"
+        headers:
+            Authorization: "BEARER {{ morpheus_api_token }}"
+        method: POST
+        body:
+          servicePlan:
+            name: create_new_serviceplan
+            code: newplan
+            displayorder: 1
+            description: servicePlans created with ansible
+            provisionType: vmware
+            customCores: true
+            config:
+              ranges:
+                 maxStorage: 102400
+                 minStorage: 8192
+                 minMemory: 8192
+                 maxMemory: 102400
+                 minCores: 1
+                 maxCores: 4
+            maxStorage: 102400
+            maxMemory: 102400
+            priceSets:
+            - id: 43
+            visibility: private
+            permissions:
+              resourcePermissions:
+                all: true
+                sites:
+                - id: 4
+                  default: true
+              tenantPermissions:
+                accounts: Polaris
+        validate_certs: false
+        body_format: json
+        force_basic_auth: yes
+        return_content: true
+      register: created_service_Plans
