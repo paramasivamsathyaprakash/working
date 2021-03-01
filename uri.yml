@@ -10,7 +10,7 @@
         headers:
           Authorization: "BEARER gggggg"
         return_content: yes
-        validate_certs: false
+        validate_certs: no
         status_code: -1
       register: response
 
