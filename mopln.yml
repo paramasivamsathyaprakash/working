@@ -9,7 +9,7 @@
     - name: Create a Service Plan for Polaris-small
       uri:
       method: POST
-      url: '{{ morpheus_appliance_url }}/api/service-plans'
+      url: '{{ morpheus_appliance_url }}'
       headers:
         Authorization: "BEARER {{ morpheus_api_token }}"
         Content-Type: "application/json"
