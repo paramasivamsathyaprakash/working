@@ -1,0 +1,24 @@
+---
+- name: update requests to morpheus api
+  hosts: localhost
+  connection: local
+  vars:
+    morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
+    morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
+  tasks:
+    - name: Update a Service Plan for Polaris-smallmed
+      uri:
+        method: PUT
+        url: '{{ morpheus_appliance_url }}'
+        headers:
+          Authorization: "BEARER {{ morpheus_api_token }}"
+          Content-Type: "application/json"
+        force_basic_auth: yes
+        return_content: true
+        success: true
+        status_code: -1
+        validate_certs: no
+      register: activate_serviceplans
+    - debug:
+        msg: "{{ activate_serviceplans }}"
+
