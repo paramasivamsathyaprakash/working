@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    morpheus_appliance_url: https://api.gomorpheus.com/api/service-plans
+    morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: fa74c6c7-aee5-4389-906b-51967bd616b0
   tasks:
     - name: Create a Service Plan for Polaris-small
