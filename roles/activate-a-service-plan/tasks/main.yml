@@ -10,6 +10,6 @@
     return_content: true
     status_code: -1
     validate_certs: no
-  register: updatedserviceplans
+  register: activatedserviceplans
 - debug:
     msg: "{{ activatedserviceplans }}"
