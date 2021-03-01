@@ -31,6 +31,6 @@
       force_basic_auth: yes
       return_content: true
       validate_certs: false
-  register: serviceplans
+    register: serviceplans
 - debug:
     msg: "{{ serviceplans }}"
