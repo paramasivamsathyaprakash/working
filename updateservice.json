@@ -1,0 +1,45 @@
+{
+  "servicePlan": {
+    "name": "pol small plan 1",
+    "code": "updatedpol",
+    "description": null,
+    "provisionType": {
+      "id": 1
+    },
+    "customCores": true,
+    "config": {
+      "ranges": {
+        "maxStorage": null,
+        "minMemory": 1073741824,
+        "maxMemory": 1073741824,
+        "minCores": 1,
+        "maxCores": 4
+      }
+    },
+    "maxStorage": 1073741824,
+    "maxMemory": 1073741824,
+    "priceSets": [
+      {
+        "id": 43
+      }
+    ],
+    "visibility": "private",
+    "permissions": {
+      "resourcePermissions": {
+        "all": true,
+        "sites": [
+          {
+            "id": 4,
+            "default": true
+          }
+        ]
+      },
+      "tenantPermissions": {
+        "accounts": [
+          1,
+          2
+        ]
+      }
+    }
+  }
+}
