@@ -2,10 +2,10 @@
 - name: activate a service plan
   uri:
     method: PUT
-    url: '{{ morpheus_appliance_url }}'
+    url: '{{ morpheus_appliance_url }}/{{ idtoactivate }}/activate'
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
-    force_basic_auth: no
+      Content-Type: "application/json"
     return_content: true
     validate_certs: no
   register: activatedserviceplans
