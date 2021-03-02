@@ -2,7 +2,7 @@
 - name: deactivate a service plan
   uri:
     method: PUT
-    url: '{{ morpheus_appliance_url }}/{{ idtodeactivate }}/deactivate'
+    url: '{{ morpheus_appliance_url }}/{{ idtodeactivate }}/deactivate'  ###ansible-playbook deactivate-a-service-plan.yml -e '{"idtodeactivate": id}'
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
       Content-Type: "application/json"
