@@ -6,7 +6,7 @@
     body_format: json
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
-    body: "{{ lookup('file','updateservice.json') }}"
+    body: "{{ lookup('file','update-a-service-plan.json') }}"
     force_basic_auth: no
     return_content: true
     validate_certs: no
