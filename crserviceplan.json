@@ -1,43 +1,45 @@
-{"servicePlan": {
-        "name": "pol small plan 1",
-        "code": "pol.small.plan.1",
-        "description": null,
-        "provisionType": {
-          "id": 1
-        },
-        "customCores": true,
-        "config": {
-          "ranges": {
-              "maxStorage": null,
-              "minMemory": 1073741824,
-              "maxMemory": 1073741824,
-              "minCores": 1,
-              "maxCores": 4
-          }
-        },
-        "maxStorage": 1073741824,
-        "maxMemory": 1073741824,
-        "priceSets": [
+{
+  "servicePlan": {
+    "name": "Polaris-small-plan",
+    "code": "Polsmall",
+    "description": null,
+    "provisionType": {
+      "id": null
+    },
+    "customCores": false,
+    "config": {
+      "ranges": {
+        "maxStorage": 102400,
+        "minMemory": 8192,
+        "maxMemory": 102400,
+        "minCores": 1,
+        "maxCores": 4
+      }
+    },
+    "maxStorage": 102400,
+    "maxMemory": 102400,
+    "priceSets": [
+      {
+        "id": null
+      }
+    ],
+    "visibility": "public",
+    "permissions": {
+      "resourcePermissions": {
+        "AllClouds": true,
+        "sites": [
           {
-              "id": 43
+            "id": null,
+            "default": true
           }
-        ],
-        "visibility": "private",
-        "permissions": {
-          "resourcePermissions": {
-              "all": true,
-              "sites": [
-                  {
-                      "id": 4,
-                      "default": true
-                  }
-              ]
-          },
-          "tenantPermissions": {
-              "accounts": [
-                  1,
-                  2
-              ]
-          }
-        }
-      }}
+        ]
+      },
+      "tenantPermissions": {
+        "accounts": [
+          1,
+          2
+        ]
+      }
+    }
+  }
+}
