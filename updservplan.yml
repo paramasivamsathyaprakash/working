@@ -1,12 +1,12 @@
 ---
-- name: Create a Service Plan for Polaris-small   ###plan code should be unique
+- name: update a Service Plan for Polaris-small  
   uri:
     method: PUT
     url: '{{ morpheus_appliance_url }}'
     body_format: json
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
-    body: "{{ lookup('file','crserviceplan.json.json') }}"
+    body: "{{ lookup('file','updateservice.json') }}"
     force_basic_auth: no
     return_content: true
     validate_certs: no
