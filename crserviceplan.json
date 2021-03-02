@@ -1,7 +1,7 @@
 {
   "servicePlan": {
     "name": "Polaris-small-plan",
-    "code": "PS",
+    "code": "Polsmall",
     "description": null,
     "provisionType": {
       "id": null
@@ -9,15 +9,15 @@
     "customCores": false,
     "config": {
       "ranges": {
-        "maxStorage": 102400,
-        "minMemory": 8192,
-        "maxMemory": 102400,
+        "maxStorage": 104857600,
+        "minMemory": 8388608,
+        "maxMemory": 104857600,
         "minCores": 1,
         "maxCores": 4
       }
     },
-    "maxStorage": 102400,
-    "maxMemory": 102400,
+    "maxStorage": 104857600,
+    "maxMemory": 104857600,
     "priceSets": [
       {
         "id": 4
