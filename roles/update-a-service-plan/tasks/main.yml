@@ -2,7 +2,7 @@
 - name: update a Service Plan for Polaris-small  
   uri:
     method: PUT
-    url: '{{ morpheus_appliance_url }}/{{ idtoactivate }}/activate' #ansible-playbook deactivate-a-service-plan.yml -e '{"idtodeactivate": id}'
+    url: '{{ morpheus_appliance_url }}/{{ idtoupdate }}' #ansible-playbook update-a-service-plan.yml -e '{"idtoupdate": id}'
     body_format: json
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
