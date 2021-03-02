@@ -20,7 +20,7 @@
     "maxMemory": 102400,
     "priceSets": [
       {
-        "id": null
+        "id": 4
       }
     ],
     "visibility": "public",
