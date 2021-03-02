@@ -1,15 +1,15 @@
 ---  
 - name: Create a Service Plan for Polaris-small
-    uri:
-      method: POST
-      url: '{{ morpheus_appliance_url }}'
-      body_format: json
-      headers:
-        Authorization: "BEARER {{ morpheus_api_token }}"
-      body: "{{ lookup('file','crserviceplan.json') }}"
-      force_basic_auth: no
-      return_content: true
-      validate_certs: no
-    register: serviceplans
-  - debug:
-      msg: "{{ serviceplans }}"
+  uri:
+    method: POST
+    url: '{{ morpheus_appliance_url }}'
+    body_format: json
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    body: "{{ lookup('file','crserviceplan.json') }}"
+    force_basic_auth: no
+    return_content: true
+    validate_certs: no
+  register: serviceplans
+- debug:
+    msg: "{{ serviceplans }}"
