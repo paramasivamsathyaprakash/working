@@ -14,7 +14,7 @@
         headers:
           Authorization: "BEARER {{ morpheus_api_token }}"
           Content-Type: "application/json"
-        body: "{{ lookup('file','.json') }}"
+        body: "{{ lookup('file','crserviceplan.json.json') }}"
         force_basic_auth: no
         return_content: true
         validate_certs: no
