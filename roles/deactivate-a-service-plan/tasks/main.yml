@@ -2,13 +2,11 @@
 - name: deactivate a service plan
   uri:
     method: PUT
-    url: '{{ morpheus_appliance_url }}'
+    url: '{{ morpheus_appliance_url }}/{{ idtodeactivate }}/deactivate'
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
       Content-Type: "application/json"
-    force_basic_auth: yes
     return_content: true
-    status_code: -1
     validate_certs: no
   register: deactivatedserviceplans
 - debug:
