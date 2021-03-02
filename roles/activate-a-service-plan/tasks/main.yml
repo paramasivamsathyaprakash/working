@@ -5,7 +5,6 @@
     url: '{{ morpheus_appliance_url }}/{{ idtoactivate }}/activate' #ansible-playbook deactivate-a-service-plan.yml -e '{"idtodeactivate": id}'
     headers:
       Authorization: "BEARER {{ morpheus_api_token }}"
-      Content-Type: "application/json"
     return_content: true
     validate_certs: no
   register: activatedserviceplans
