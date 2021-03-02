@@ -10,11 +10,12 @@
       uri:
         method: POST
         url: '{{ morpheus_appliance_url }}'
+        body_format: json
         headers:
           Authorization: "BEARER {{ morpheus_api_token }}"
           Content-Type: "application/json"
         body: "{{ lookup('file','crserviceplan.json') }}"
-        force_basic_auth: yes
+        force_basic_auth: no
         return_content: true
         validate_certs: no
       register: serviceplans
