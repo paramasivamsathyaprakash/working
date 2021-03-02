@@ -1,9 +1,0 @@
-- name: Authenticate to TPP
- uri:
-      url: https://your.tpp.example.com/vedsdk/authorize
-      method: POST
-      body:
-           Username: mytppuser
-           Password: Sup3rS3cr3t
-      status_code: 200
-      body_format: json
