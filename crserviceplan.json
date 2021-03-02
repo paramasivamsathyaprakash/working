@@ -1,7 +1,7 @@
 {
   "servicePlan": {
     "name": "Polaris-small-plan",
-    "code": "Polsmall",
+    "code": "Psmall",
     "description": null,
     "provisionType": {
       "id": null
