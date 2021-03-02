@@ -2,7 +2,6 @@
 - name: update requests to morpheus api
   hosts: localhost
   connection: local
-  become: true
   vars:
     morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: ####
