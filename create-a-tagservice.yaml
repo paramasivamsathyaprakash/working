@@ -7,4 +7,4 @@
     morpheus_api_token: ####
     
   roles:
-    - create-a-service-plan
+    - create-a-tag-service-plans
