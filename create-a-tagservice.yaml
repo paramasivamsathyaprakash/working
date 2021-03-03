@@ -8,4 +8,7 @@
   roles:
     - { role: create-a-tag-service-plans, vars: { size: "pollsmall" } }
     - { role: createatagserviceplan1, vars: { size: "polmed" } }
+    - { role: create-medium-plan, vars: { size: "polhmed" } }
+    - { role: create-large-plan, vars: { size: "pollarge" } }
+    - { role: create-extra-large-plan, vars: { size: "polxl" } }
 
