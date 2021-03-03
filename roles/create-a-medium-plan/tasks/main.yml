@@ -1,5 +1,5 @@
 ---  
-- name: Create a Service Plan for Polaris-small
+- name: Create a Service Plan for Polaris-medium
   uri:
     method: POST
     url: '{{ morpheus_appliance_url }}'
