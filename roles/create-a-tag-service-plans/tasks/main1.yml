@@ -12,5 +12,3 @@
   register: serviceplans
 - debug:
     msg: "{{ serviceplans }}"
-    tags: 
-       -polmedium
