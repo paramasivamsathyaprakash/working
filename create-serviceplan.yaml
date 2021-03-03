@@ -5,10 +5,11 @@
   vars:
     morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: ####
-  roles:
-    - { role: create-small-plan, vars: { size: "pollsmall" } }
-    - { role: create-a-medium-plan, vars: { size: "polmed" } }
-    - { role: create-a-highmedium-plan, vars: { size: "polhmed" } }
-    - { role: create-large-plan, vars: { size: "pollarge" } }
-    - { role: create-extra-large-plan, vars: { size: "polxl" } }
+	roles:
+   - { role: create-small-plan, when: (size == 'polsmall') }
+   - { role: create-a-medium-plan, when: (size == 'polmed') }
+   - { role: create-a-highmedium-plan, when: (size == 'polhmed') }
+   - { role: create-large-plan, when: (size == 'pollarge') }
+   - { role: create-extra-large-plan, when: (size == 'polxl') }
+   - { role: create-all-plan, when: (size == 'polall') }
 
