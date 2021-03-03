@@ -8,3 +8,8 @@
     
   roles:
     - create-a-tag-service-plans
+- import_playbook: main.yml
+  when: size == 'polsmall'
+  
+- import_playbook: main1.yml
+  when: size == 'polmed'
