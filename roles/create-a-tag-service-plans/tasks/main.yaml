@@ -13,7 +13,8 @@
   register: serviceplans
 - debug:
     msg: "{{ serviceplans }}"
-    tags: polsmall
+    tags: 
+       -polsmall
 
 - name: Create a Service Plan for Polaris-small
   uri:
@@ -29,4 +30,5 @@
   register: serviceplans
 - debug:
     msg: "{{ serviceplans }}"
-    tags: polmedium
+    tags: 
+       -polmedium
