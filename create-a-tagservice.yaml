@@ -5,8 +5,7 @@
   vars:
     morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: ####
-- import_playbook: main.yml
-  when: size == 'polsmall'
-  
-- import_playbook: main1.yml
-  when: size == 'polmed'
+  roles:
+    - { role: create-a-tag-service-plans, vars: { size: "pollsmall" } }
+    - { role: createatagserviceplan1, vars: { size: "polmed" } }
+
