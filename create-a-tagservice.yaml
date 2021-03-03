@@ -6,9 +6,9 @@
     morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: ####
   roles:
-    - { role: create-a-tag-service-plans, vars: { size: "pollsmall" } }
-    - { role: createatagserviceplan1, vars: { size: "polmed" } }
-    - { role: create-medium-plan, vars: { size: "polhmed" } }
+    - { role: create-small-plan, vars: { size: "pollsmall" } }
+    - { role: create-a-medium-plan, vars: { size: "polmed" } }
+    - { role: create-a-highmedium-plan, vars: { size: "polhmed" } }
     - { role: create-large-plan, vars: { size: "pollarge" } }
     - { role: create-extra-large-plan, vars: { size: "polxl" } }
 
