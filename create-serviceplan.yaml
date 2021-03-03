@@ -5,7 +5,7 @@
   vars:
     morpheus_appliance_url: https://devlmorph001.techlab.com/api/service-plans
     morpheus_api_token: ####
-	roles:
+  roles:
    - { role: create-small-plan, when: (size == 'polsmall') }
    - { role: create-a-medium-plan, when: (size == 'polmed') }
    - { role: create-a-highmedium-plan, when: (size == 'polhmed') }
