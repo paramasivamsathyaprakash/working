@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    morpheus_appliance_url: https://devlmorph001.techlab.com
+    morpheus_api_token: ###########
+    morpheus_instancetype: "Polwin090321"
+    morpheus_layout: "Polwin0903211" 
+    morpheus_layout_description: "Iam created with Ansible"
+    morpheus_layout_instance_version: 1.0
+    morpheus_layout_provisiontype: vmware
+    morpheus_node: "Windowsnode090321090321" 
+
+  roles:
+    - createlayout-type
