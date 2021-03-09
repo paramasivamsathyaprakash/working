@@ -1,0 +1,116 @@
+---
+- name: "Get Morpheus Node Type by name: {{ morpheus_node }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/container-types?name={{ morpheus_node | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: node_types_output
+
+- name: "Get Morpheus Virtual Image by name: {{ morpheus_virtualimage }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/virtual-images?name={{ morpheus_virtualimage | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: virtual_images_output
+  retries: 3
+  delay: 5
+  until: virtual_images_output.json.virtualImages[0].id is defined
+  ignore_errors: true
+  failed_when: false
+
+- name: Add Virtual Image to Morpheus when it doesn't exist
+  include_tasks: 'virtualimage.yml'
+  when: virtual_images_output.json.virtualImages[0].id is not defined
+  register: add_virtual_image
+
+- name: "Get Morpheus Virtual Image by name: {{ morpheus_virtualimage }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/virtual-images?name={{ morpheus_virtualimage | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: virtual_images_output_afterCreating
+  retries: 3
+  delay: 5
+  until: virtual_images_output_afterCreating.json.virtualImages[0].id is defined
+  when: virtual_images_output.json.virtualImages[0].id is not defined
+
+- name: Set Morpheus id facts
+  set_fact:
+    virtual_image_id: "{{ virtual_images_output.json.virtualImages[0].id | default(None) }}"  
+    virtual_image_name: "{{ virtual_images_output.json.virtualImages[0].name | default(None) }}"  
+    node_type_id: "{{ node_types_output.json.containerTypes[0].id | default(None) }}"  
+    
+  when: virtual_images_output.json.virtualImages[0].id is defined
+
+- name: Set Morpheus id facts
+  set_fact:
+    virtual_image_id: "{{ virtual_images_output_afterCreating.json.virtualImages[0].id | default(None) }}"  
+    virtual_image_name: "{{ virtual_images_output_afterCreating.json.virtualImages[0].name | default(None) }}" 
+    node_type_id: "{{ node_types_output.json.containerTypes[0].id | default(None) }}"  
+  when: virtual_images_output_afterCreating.json.virtualImages[0].id is defined
+
+- name: "Create Node Type: {{ morpheus_node }}, if it doesn't exist"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/container-types'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+      Content-Type: "application/json"
+    method: POST
+    body:
+      containerType:
+        name: "{{ morpheus_node }}"
+        shortName: "{{ morpheus_node_shortname }}"
+        containerVersion: "{{ morpheus_container_version }}"
+        provisionTypeCode: vmware
+        virtualImageId: "{{ virtual_image_id }}"
+        mountLogs: null
+        mountData: null
+        stateTypeCode: vmware
+        logTypeCode: vmware
+        serverType: vm
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: new_node_obj
+  when:
+    - node_types_output.json.containerTypes is defined
+    - node_types_output.json.containerTypes | length == 0
+
+- name: "Update Morpheus node: {{ morpheus_node }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/container-types/{{ node_type_id }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+      Content-Type: "application/json"
+    method: PUT
+    body:
+      containerType:
+        name: "{{ morpheus_node }}"
+        shortName: "{{ morpheus_node_shortname }}"
+        containerVersion: "{{ morpheus_container_version }}"
+        provisionTypeCode: vmware
+        virtualImageId: "{{ virtual_image_id }}"
+        mountLogs: null
+        mountData: null
+        stateTypeCode: vmware
+        logTypeCode: vmware
+        serverType: vm
+    validate_certs: false
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+  register: updated_node_obj
+  when: new_node_obj.json is not defined
