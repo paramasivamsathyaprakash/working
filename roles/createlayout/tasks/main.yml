@@ -1,0 +1,106 @@
+---
+- name: "Get Morpheus Node Type by name: {{ morpheus_node }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/container-types?name={{ morpheus_node | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: node_types_output
+
+- name: "Get Morpheus Instance Type by name: {{ morpheus_instancetype }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/instance-types?name={{ morpheus_instancetype | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: get_instance_types_output
+
+- name: "Get Morpheus Layout by name: {{ morpheus_layout }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/layouts?name={{ morpheus_layout | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: get_layouts_output
+
+- name: Save Initial layout Type API response
+  copy:
+    content: '{{ get_layouts_output.json | to_nice_json(indent=2) }}'
+    dest: /root/newdir/prelayout.txt
+
+- name: Set Morpheus id facts
+  set_fact:
+    node_type_id: "{{ node_types_output.json.containerTypes[0].id | default(None) }}"  
+    instance_type_id: "{{ get_instance_types_output.json.instanceTypes[0].id | default(omit) }}"  
+    layout_type_id: "{{ get_layouts_output.json.instanceTypeLayouts[0].id | default(omit) }}"
+
+- name: "Create layout, if it doesn't exist. And attach to Instance Type"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/instance-types/{{ instance_type_id }}/layouts'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+      Content-Type: "application/json"
+    method: POST
+    body:
+      instanceTypeLayout:
+        name: "{{ morpheus_layout }}"
+        instanceVersion: "{{ morpheus_layout_instance_version }}"
+        provisionTypeCode: "{{ morpheus_layout_provisiontype }}"
+
+        description: "{{ morpheus_layout_description | default('Created with Ansible') }}"
+        creatable: true
+        hasAutoScale: false
+        supportsConvertToManaged: true
+        memoryRequirement: 2048
+        containerTypes:
+          - "{{ node_type_id }}"
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+    body_format: json
+  register: new_layout_obj
+  when:
+    - get_layouts_output.json.instanceTypeLayouts is defined
+    - get_layouts_output.json.instanceTypeLayouts | length == 0
+
+- name: Copy using inline content
+  copy:
+    content: '{{ new_layout_obj | to_nice_json(indent=2) }}'
+    dest: /root/newdir/createdlayout.txt
+
+- name: "Update Morpheus layout: {{ morpheus_layout }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/library/layouts/{{ layout_type_id }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+      Content-Type: "application/json"
+    method: PUT
+    body:
+      instanceTypeLayout:
+        name: "{{ morpheus_layout }}"
+        instanceVersion: "{{ morpheus_layout_instance_version }}"
+        provisionTypeCode: "{{ morpheus_layout_provisiontype }}"
+        description: "{{ morpheus_layout_description | default('Created with Ansible') }}"
+        creatable: true
+        hasAutoScale: false
+        supportsConvertToManaged: true
+        memoryRequirement: 2
+        containerTypes:
+          - "{{ node_type_id }}"
+    validate_certs: false
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+  register: updated_layout_obj
+  when:
+    - layout_type_id is defined
+    - new_layout_obj.json is not defined
