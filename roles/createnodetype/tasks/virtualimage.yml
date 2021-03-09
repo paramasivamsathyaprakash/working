@@ -1,0 +1,75 @@
+---
+- name: "Get Morpheus Virtual Image by name: {{ morpheus_virtualimage }}"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/virtual-images?name={{ morpheus_virtualimage | urlencode }}'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: virtual_images_output
+  ignore_errors: true
+  failed_when: false
+
+- name: "Get Morpheus OS Types and Ids"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/options/osTypes'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+    method: GET
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: os_types_output
+  when: virtual_images_output.json.virtualImages[0].id is not defined
+
+- name: Save Initial layout Type API response
+  copy:
+    content: '{{ os_types_output.json | to_nice_json(indent=2) }}'
+    dest: /root/newdir/ostype.json
+
+- name: Set Morpheus id facts
+  set_fact:
+    osType_obj: "{{ os_types_output.json | json_query(osTypes_query) }}"
+    virtual_image_id: "{{ virtual_images_output.json.virtualImages[0].id | default(omit) }}"  
+    virtual_image_name: "{{ virtual_images_output.json.virtualImages[0].name | default(omit) }}"  
+  when: virtual_images_output.json.virtualImages[0].id is not defined
+
+- name: "Create VMware Virtual Image: {{ morpheus_virtualimage }}, if it doesn't exist"
+  uri:
+    url: '{{ morpheus_appliance_url }}/api/virtual-images'
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+      Content-Type: "application/json"
+    method: POST
+    body:
+      virtualImage:
+        name: "{{ morpheus_virtualimage }}"
+        imageType: vmware
+        osType:
+          id: "{{ osType_obj[0].id }}"
+        sshUsername: "{{ vm_template_username }}"
+        sshPassword: "{{ vm_template_password }}"
+        vmToolsInstalled: true
+        visibility: private
+        installAgent: true
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: virtual_image_obj
+  when:
+    - virtual_image_id is not defined
+    - virtual_image_name is not defined
+    - virtual_images_output.json.virtualImages[0].id is not defined
+
+- name: Assert that the Virtual Image was created correctly
+  assert:
+    that:
+      - virtual_image_obj.json.virtualImage.name == morpheus_virtualimage
+    success_msg: "[SUCCESS] Morpheus Virtual Image: {{ virtual_image_obj.json.virtualImage.name }}, has been created with virtualImageId: {{ virtual_image_obj.json.virtualImage.id }}, matching intended VM Template name: {{ morpheus_virtualimage }}"
+  when:
+    - virtual_image_id is not defined
+    - virtual_image_name is not defined
+    - virtual_images_output.json.virtualImages[0].id is not defined
