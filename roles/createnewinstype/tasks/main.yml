@@ -1,0 +1,22 @@
+---
+- name: "Create instance Type: {{ instancetype }}"
+  uri:
+    url: "{{ morpheus_appliance_url }}/api/library/instance-types"
+    headers:
+      Authorization: "BEARER {{ morpheus_api_token }}"
+      Content-Type: "application/json"
+    method: POST
+    body:
+      instanceType:
+        name: "{{ instancetype }}"
+        description: created with Ansible
+        code: "{{ instancecode }}"
+        category: "{{ instance_category }}"
+        visibility: Private
+        hasSettings: true
+        environmentPrefix: FOOBAR_
+    body_format: json
+    force_basic_auth: yes
+    return_content: true
+    validate_certs: false
+  register: instance_output
