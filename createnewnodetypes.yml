@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    morpheus_appliance_url: https://devlmorph001.techlab.com
+    morpheus_api_token: #####
+    morpheus_node: "PolWin090321" 
+    morpheus_node_shortname: "WIN"
+    morpheus_virtualimage: "polwindowsimage090321" 
+    morpheus_container_version: "1.0" 
+    morpheus_virtualimage_guestype: Windows
+    morpheus_virtualimage_platform: Windows
+    osTypes_query: "data[?name == '{{ morpheus_virtualimage_guestype }}']"
+    vm_template_username:  Administrator
+    vm_template_password: ####
+
+  roles:
+    - createnode-type
