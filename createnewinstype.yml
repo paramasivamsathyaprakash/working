@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    morpheus_appliance_url: https://devlmorph001.techlab.com
+    morpheus_api_token: ######
+    instancetype: "Polwin090321"
+    instancecode: "Mypolwin9321" ##################code should be unique
+    instance_category: OS
+  roles:
+    - role: create-instancetype
